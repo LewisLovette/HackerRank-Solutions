@@ -5,7 +5,8 @@ using namespace std;
 int main() {
     // Complete the code.
     int n, j;
-        cin >> n >> j;
+    cin >> n >> j;
+    
     for(n; n <= j ;n++){
         string numWord;
 
