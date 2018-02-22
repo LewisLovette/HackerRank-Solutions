@@ -4,12 +4,11 @@
 #include <iostream>
 #include <algorithm>
 using namespace std;
-//completes first test but not other hmm, weird issues popping up with this
+
 int main() {
     /* Enter your code here. Read input from STDIN. Print output to STDOUT */  
-    int temp, temp2, addScore, pos = 1, aliceScore; //pos = 0 as can't be position 0
+    int temp, temp2, temp3, addScore, pos = 1; //pos = 0 as can't be position 0
     cin >> temp;
-    
     int scoreAr[temp];
     
     for(int i = 0; i < temp; i++){
@@ -18,18 +17,22 @@ int main() {
     }
     
     cin >> temp2;
+    temp3 = temp;  //so temp3 is last pos in leaderboard
     
     for(int i = 0; i < temp2; i++){
         cin >> addScore;
-        aliceScore += addScore;
         for(int j = 0; j < temp; j++){  //for length of size of 'scoreAr[]'
-            if(aliceScore < scoreAr[j]){    //checking its greater and if score duplicate
+            if(j > temp3){
+                break;
+            }
+            if(addScore < scoreAr[j]){    //checking its greater to find correct pos
                 if(j <= 0){
                     pos++;
                 }else if(scoreAr[j] != scoreAr[j-1]){
                     pos++;
                 }
-                cout << "";
+            } else{
+                temp3 = j;
             }
         }
         cout << pos << endl;
