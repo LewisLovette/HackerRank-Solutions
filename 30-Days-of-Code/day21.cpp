@@ -6,8 +6,5 @@
 
 // Write your code here
 void printArray(vector<auto> arr){  //auto for making it dynamic?
-    for(int i = 0; i < arr.size(); i++){
-        auto temp = arr[i]; //changes variable type as needed.
-        cout << temp << endl;
-    }
+    for(int i = 0; i < arr.size(); i++) cout << arr[i] << endl;
 }
