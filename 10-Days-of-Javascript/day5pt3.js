@@ -5,13 +5,12 @@
  * nums: An array of numbers.
  */
 function modifyArray(nums) {
-    for(var i = 0; i < nums.length; i++){
-        if(nums[i] % 2 == 0){ //even
-            nums[i] *= 2;
-        } else{
-            nums[i] *= 3;
-        }
+    var temp = x => {
+        x = (x % 2 == 0) ? x*2: x*3;    //ayy - creates if statement - as so    (statement) ? if true do: else do;    
+        return x;
     }
     
-    return nums;
+    var newArr = nums.map(temp)
+    
+    return newArr;
 }
