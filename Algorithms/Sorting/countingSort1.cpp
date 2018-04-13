@@ -14,12 +14,11 @@ int main() {
         if(arr[arr_i] > largest) largest = arr[arr_i];
     }
     
-    int result[largest];
-    for(int i = 0; i < largest; i++) result[i] = 0;   //initializing arr
-    for(int i = 0; i < largest; i++) result[arr[i]]++;    //+1 to each arr[i].
+    int result[largest] = {0};  //initializing all positions in the arr with 0  
+    for(int i = 0; i < n; i++) result[arr[i]]++;    //+1 to each arr[i] for the length of n.
     
     for (ssize_t i = 0; i <= largest; i++) {
-        cout << result[i] << (i != largest ? " " : "");
+        cout << result[i] << (i < largest ? " " : "");
     }
     cout << endl;
 
