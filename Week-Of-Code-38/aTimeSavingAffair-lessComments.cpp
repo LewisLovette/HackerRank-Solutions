@@ -1,33 +1,30 @@
-// Program to find Dijkstra's shortest path using
-// priority_queue in STL
+//Dijkstra's shortest path with Priority queue - LL
 #include<bits/stdc++.h>
+
 using namespace std;
+
 # define INF 0x3f3f3f3f
  
-// iPair ==>  Integer Pair
 typedef pair<int, int> iPair;
  
-// This class represents a directed graph using
-// adjacency list representation
 class Graph
 {
-    int V;    // No. of vertices
+    int V;    //Vertexs
  
-    // In a weighted graph, we need to store vertex
-    // and weight pair for every edge
+    //Vertex+edge pairs
     list< pair<int, int> > *adj;
  
 public:
-    Graph(int V);  // Constructor
+    Graph(int V);   //number of edges
  
-    // function to add an edge to graph
+    // adds edge
     void addEdge(int u, int v, int w);
- 
-    // prints shortest path from s
+    
+    //Shortest path from int s
     long shortestPath(int s, int T);
 };
  
-// Allocates memory for adjacency list
+//Memory for adjacent list
 Graph::Graph(int V)
 {
     this->V = V;
@@ -40,46 +37,31 @@ void Graph::addEdge(int u, int v, int w)
     adj[v].push_back(make_pair(u, w));
 }
  
-// Prints shortest paths from src to all other vertices
-long Graph::shortestPath(int src, int T)
-{   
+//This is the Dijkstra bit but using priorty Queue
+long Graph::shortestPath(int src, int T){   
 
     int time = 0;
     bool light = true;
 
-    // Create a priority queue to store vertices that
-    // are being preprocessed. This is weird syntax in C++.
-    // Refer below link for details of this syntax
-    // http://geeksquiz.com/implement-min-heap-using-stl/
+    //Creating the priority Queue
     priority_queue< iPair, vector <iPair> , greater<iPair> > pq;
  
-    // Create a vector for distances and initialize all
-    // distances as infinite (INF)
+    // Set all distances as infinite
     vector<int> dist(V, INF);
  
-    // Insert source itself in priority queue and initialize
-    // its distance as 0.
+    // Put source into queue and set to 0
     pq.push(make_pair(0, src));
     dist[src] = 0;
  
-    /* Looping till priority queue becomes empty (or all
-      distances are not finalized) */
-    while (!pq.empty())
-    {
-        // The first vertex in pair is the minimum distance
-        // vertex, extract it from priority queue.
-        // vertex label is stored in second of pair (it
-        // has to be done this way to keep the vertices
-        // sorted distance (distance must be first item
-        // in pair)
+    //Looping through priority que until it is empty
+    while (!pq.empty()){
         int u = pq.top().second;
         pq.pop();
  
         // 'i' is used to get all adjacent vertices of a vertex
         list< pair<int, int> >::iterator i;
         for (i = adj[u].begin(); i != adj[u].end(); ++i){   
-            // Get vertex label and weight of current adjacent
-            // of u.
+            //vertex + weight of current adjacent for U
             int v = (*i).first;
             int weight = (*i).second;
 
@@ -90,17 +72,17 @@ long Graph::shortestPath(int src, int T)
                 light = !light;
             }
 
-            //  If there is shorted path to v through u.
+            //Shorter path through U to V
             if(light == true){  //Green light
                 if(dist[v] >  dist[u] + weight){
-                    // Updating distance of v
+                    //Giving lower V value
                     dist[v] = dist[u] + weight;
                     pq.push(make_pair(dist[v], v));
                 }
             }
             else{   //Red light
                 if(dist[v] >  dist[u] + weight + (T-time)){
-                    // Updating distance of v
+                    //Giving the lower V value
                     dist[v] = dist[u] + weight+(T-time);
                     pq.push(make_pair(dist[v], v));
                     cout << "dist["<<v<<"]: "<< dist[v] << "   time: " << time << endl;
@@ -109,26 +91,19 @@ long Graph::shortestPath(int src, int T)
 
             light = true;
         }
-
     }
- 
-    // Print shortest distances stored in dist[]
-    //printf("Vertex   Distance from Source\n");
-    //for (int i = 1; i < V; ++i)
-    //    printf("%d \t\t %d\n", i, dist[i]);
     
     return (long)dist[V-1];
 }
 
 // Complete the leastTimeToInterview function below.
 int leastTimeToInterview(int V, int t, int m) {
-    // create the graph given in above fugure
-    //int V, T, J, 
+    //vertex1, vertex2, weight
     int x, y, w;
-    //cin >> V >> T >> J;
+    
     Graph g(V+1);   //as works from 0
  
-    //  making above shown graph
+    //Creating the graph
     for(int i = 0; i < m; i++){
         cin >> x >> y >> w;
 
@@ -137,6 +112,7 @@ int leastTimeToInterview(int V, int t, int m) {
  
     long result = g.shortestPath(1, t);
 
+    //Test
     //cout << result << endl;
 
     return result;
